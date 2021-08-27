@@ -9,11 +9,6 @@ package frc.robot;
 
 import static frc.robot.Ports.*;
 
-<<<<<<< Updated upstream
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.DriverStation;
-=======
 import java.util.Set;
 
 import edu.wpi.first.cameraserver.CameraServer;//Leave this
@@ -22,7 +17,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation;//Leave this
 // import com.analog.adis16448.frc.ADIS16448_IMU; // Gyro import, leave in
 
->>>>>>> Stashed changes
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -47,34 +41,21 @@ public class Robot extends TimedRobot {
   private final LambdaJoystick joystick1 = new LambdaJoystick(0, driveTrain::updateSpeed);
   private final LambdaJoystick joystick2 = new LambdaJoystick(1);
 
+  public final BallSpitter ballSpitter = new BallSpitter(3);
+
   @Override
   public void robotInit() {
-<<<<<<< Updated upstream
     CameraServer.getInstance().startAutomaticCapture();
     CameraServer.getInstance().startAutomaticCapture();
     joystick1.addButton(1, driveTrain::setThrottleDirectionConstant);// flips heading
     joystick1.addButton(3, driveTrain::togglethrottleMode);// Switches throttlemode
-    joystick1.addButton(4, driveTrain::stopDriveMotors, driveTrain::restartDriveMotors);;
-    joystick2.addButton(1, driveTrain::stopDriveMotors, driveTrain::restartDriveMotors);
+    /*joystick1.addButton(4, driveTrain::stopDriveMotors, driveTrain::restartDriveMotors);;
+    joystick2.addButton(1, driveTrain::stopDriveMotors, driveTrain::restartDriveMotors);*/
   }
   @Override
   public void robotPeriodic() {
     CameraServer.getInstance().startAutomaticCapture();
     CameraServer.getInstance().startAutomaticCapture();
-=======
-  
-    joystick1.addButton(1, driveTrain::setThrottleDirectionConstant);// flips heading
-    joystick1.addButton(3, driveTrain::togglethrottleMode);// Switches throttlemode
-
-    CameraServer.getInstance().startAutomaticCapture();
-    
-
-  }
-  @Override
-  public void robotPeriodic() {
-
-
->>>>>>> Stashed changes
   }
   /**
    * This autonomous (along with the chooser code above) shows how to select
@@ -90,26 +71,21 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-<<<<<<< Updated upstream
 
-=======
-    driveTrain.autoUpdateSpeed();
+    driveTrain.autoUpdateSpeed(0.5,0.5);
    // ballSpitter.autoSpeed(-.01);
    //we need to set the motor speed to a small amount during autonomous
 //if time > 10
     //After 10 seconds we are going to set the BallSpitter to (.5) power
->>>>>>> Stashed changes
   }
 
   @Override
   public void autonomousPeriodic() {
-<<<<<<< Updated upstream
     // joystick1.listen();
     // joystick2.listen();
-=======
     double autoRemainingTime = Timer.getMatchTime();
     if (autoRemainingTime <= 5){
-      driveTrain.dateSpeed();
+      //driveTrain.dateSpeed();//no idea wth this is
       ballSpitter.autoSpeed(0.5);
     }
 
@@ -119,22 +95,18 @@ public class Robot extends TimedRobot {
   // driveTrain.startAuto();
   
     
->>>>>>> Stashed changes
   }
 
 
   @Override
   public void teleopInit() {
-    driveTrain.dateSpeed();
+    //driveTrain.dateSpeed();
     isDriverControlling = true;
-<<<<<<< Updated upstream
     joystick1.listen();
     joystick2.listen();
-=======
     ballSpitter.neutral();
     // driveTrain.stopAuto();
 
->>>>>>> Stashed changes
   }
 
   @Override
