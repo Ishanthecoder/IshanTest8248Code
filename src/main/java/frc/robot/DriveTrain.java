@@ -53,10 +53,10 @@ public class DriveTrain {
     public double throttleInput;
     public boolean RvsThrottleWarn;
     public boolean velocityToTurn;
-    public boolean Brakes;
     public double VelocityCheck;
     public double speedbrake;
-    public boolean braketoggler = true;
+    public boolean brakeToggler = true;
+    public boolean Brakes=!brakeToggler;
     boolean rushing = false;
     public boolean masterSafteyOff = true;
 
@@ -71,7 +71,7 @@ public class DriveTrain {
         enco = new Encoder(8, 9);
         enco.setDistancePerPulse(2.0943 / 4);
 
-        if (braketoggler == true) {
+        if (brakeToggler == true) {
             rightMotor1.setNeutralMode(NeutralMode.Brake);
             rightMotor2.setNeutralMode(NeutralMode.Brake);
             leftMotor1.setNeutralMode(NeutralMode.Brake);
@@ -100,7 +100,7 @@ public class DriveTrain {
     }
 
     public void toggleBrakesMode() {
-        braketoggler = !braketoggler;
+        brakeToggler = !brakeToggler;
     }
 
     public void armMasterSaftey() {
@@ -120,7 +120,7 @@ public class DriveTrain {
     public void makeVictorsFollowers() {
         leftMotor2.set(ControlMode.Follower, leftMotor1.getDeviceID());
         leftMotor2.setInverted(InvertType.FollowMaster);
-        rightMotor2.set(ControlMode.Follower, rightMotor2.getDeviceID());
+        rightMotor2.set(ControlMode.Follower, rightMotor1.getDeviceID());
         rightMotor2.setInverted(InvertType.FollowMaster);
     }
 
@@ -167,6 +167,8 @@ public class DriveTrain {
                 : (false);
         revrSpeedWarn = ((throttle3 >= 55.00) && (throttleForward == false) ? (revrSpeedWarn = true)
                 : (revrSpeedWarn = false));
+
+                
         SmartDashboard.putBoolean("Alarms/RvsOverSpeed", revrSpeedWarn);
         SmartDashboard.putBoolean("Alarms/masteralarm", masteralarm);
         SmartDashboard.putNumber("status/throttlePrime", (throttle3));
@@ -178,7 +180,7 @@ public class DriveTrain {
         SmartDashboard.putBoolean("Alarms/VNE", velocityNeverToExcede);
         SmartDashboard.putBoolean("Alarms/V1", velocityToTurn);
         SmartDashboard.putBoolean("status/RobotArmed", masterSafteyOff);
-        // SmartDashboard.putBoolean("BrakesIndicator",Brakes);
+        SmartDashboard.putBoolean("BrakesIndicator",Brakes);
         // SmartDashboard.putNumber
         // VelocityCheck = (Brakes == true)?(speedbrake):throttle2;
         // (throttleMode ? (throttle2) : 0.40 );

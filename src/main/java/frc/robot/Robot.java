@@ -38,15 +38,21 @@ public class Robot extends TimedRobot {
   public final DriveTrain driveTrain = new DriveTrain(LEFT_DRIVETRAIN_1, LEFT_DRIVETRAIN_2, RIGHT_DRIVETAIN_1,
       RIGHT_DRIVETAIN_2, GYRO_PORT);
 
-  private final LambdaJoystick joystick1 = new LambdaJoystick(0, driveTrain::updateSpeed);
-  private final LambdaJoystick joystick2 = new LambdaJoystick(1);
+  public final BallSpitter ballSpitter = new BallSpitter(3);//this seems to be the wrong port
 
-  public final BallSpitter ballSpitter = new BallSpitter(3);
+  public final PDPtest pdpTest = new PDPtest();
+
+  private final LambdaJoystick joystick1 = new LambdaJoystick(0, driveTrain::updateSpeed);
+  private final LambdaJoystick joystick2 = new LambdaJoystick(1, ballSpitter::updateSpeed);
+
+  
 
   @Override
   public void robotInit() {
     CameraServer.getInstance().startAutomaticCapture();
     CameraServer.getInstance().startAutomaticCapture();
+    pdpTest.PDPinit();
+  
     joystick1.addButton(1, driveTrain::setThrottleDirectionConstant);// flips heading
     joystick1.addButton(3, driveTrain::togglethrottleMode);// Switches throttlemode
     /*joystick1.addButton(4, driveTrain::stopDriveMotors, driveTrain::restartDriveMotors);;
@@ -54,6 +60,7 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void robotPeriodic() {
+    pdpTest.PDPperiodic();
     CameraServer.getInstance().startAutomaticCapture();
     CameraServer.getInstance().startAutomaticCapture();
   }
